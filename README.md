@@ -1,7 +1,7 @@
 Для запуска:
 
-docker build -t pochta_flask .
-docker run -p 5000:5000 -t pochta_flask
+docker build -t ai_sandbox .
+docker run -p 5000:5000 -t ai_sandbox
 
 
 Для отправки изображения:
