@@ -4,6 +4,7 @@ import json
 from torchvision import models
 import torchvision.transforms as transforms
 import torch
+import requests
 from PIL import Image
 from flask import Flask, jsonify, request
 
@@ -47,9 +48,11 @@ def get_prediction(image_bytes):
 @app.route('/predict', methods=['POST'])
 def predict():
     if request.method == 'POST':
-        file = request.files['file']
-        img_bytes = file.read()
-        class_name, prob = get_prediction(image_bytes=img_bytes)
+        payload = request.get_json()
+        url = payload['url']
+
+        img = requests.get(url).content
+        class_name, prob = get_prediction(image_bytes=img)
         return jsonify({'class_name': class_name, 'probability': prob})
 
 
